@@ -1,0 +1,8 @@
+#!/bin/bash
+# FILENAME: run.sub
+#SBATCH -A davisjam --nodes=1 --ntasks=64 --time=01:00:00
+
+# Show this ran on a compute node by running the hostname command.
+hostname
+
+time $MYPYTHON "$@"
