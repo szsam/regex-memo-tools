@@ -77,6 +77,6 @@ This script visualizes how the visit vector evolves during the matching process 
 You need to modify line 126 of `cpython/Modules/sre.h` to set log level to `verbose` or higher, e.g. `#define LOG_THRESHOLD  LOG_VERBOSE`. Compile then run `python3 visualize-seq.py`.
 
 # gen-regexes.py
-Enumerate all sentences from a context free grammar. This can be used to generate all regexes matching a grammar.
+Generate all regexes from a context free grammar. The script also generates run lengths for regexes. Thus the output can be sent to `mytest.py` for testing.
 
-See [here](https://www.nltk.org/api/nltk.parse.generate.html) for details of `nltk` API.
+You need to install the Python package `nltk`. See [here](https://www.nltk.org/api/nltk.parse.generate.html) for details of `nltk` API.
