@@ -39,6 +39,7 @@ def main():
     #INPUT = ''.join("a"*i+"bb" for i in [5,6,7]) + "z"
     #REGEX = "(a|aa|bb)*"
     #INPUT = getstring(['a', 'bb'], 10) + "z"
+    NFA_NODE_IDX = 2  # 1-based
     print(REGEX)
     print(INPUT)
     print(eval(INPUT))
@@ -50,11 +51,12 @@ p.fullmatch({})
 print(p.memostat)"'''.format(REGEX, INPUT)
     #print(cmd)
 
-    subprocess.run("$MYPYTHON -u -c " + cmd + " > out", shell=True)
-    subprocess.run("sed -i '0,/^testre start$/d' out", shell=True)
-    cp = runshell("grep '_create' out | head -n 2 | tail -n 1 | awk '{printf \"%s\", $4}'")
+    subprocess.run(f"$MYPYTHON -u -c {cmd} > out", shell=True)
+    subprocess.run("sed -i '0,/^testre start$/ d' out", shell=True)
+    cp = runshell(f"grep '_create' out | sed -n '{NFA_NODE_IDX} p' "
+                  "| awk '{printf \"%s\", $4}'")
     addr = cp.stdout
-    cp = runshell(f"egrep 'RLEVector_(set|get): vec {addr}' out")
+    cp = runshell(f"grep -E 'RLEVector_(set|get): vec {addr}' out")
     logs = cp.stdout
 
     vec = ['0']*(len(eval(INPUT))+1)
